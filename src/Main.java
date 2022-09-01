@@ -19,30 +19,34 @@ public class Main {
                 System.out.println("Какую покупку хотите добавить?");
                 String bpy = scanner.nextLine();
                 list.add(bpy);
-                System.out.println("Покупка добалена : " + bpy);
+                System.out.println("Покупка добавлена : " + bpy);
                 continue;
             }
             if (input.equals("2")) {
                 System.out.println("Список покупок ");
-                dopMet(list);
+                printList(list);
                 continue;
             }
             if (input.equals("3")) {
-                System.out.println("Какую покупку хотите удалить? ");
-                dopMet(list);
                 String number = scanner.nextLine();
-                int nOn = Integer.parseInt(number) - 1;
-                String bpy = list.get(nOn);
-                list.remove(nOn);
-                System.out.println("Покупка удалена : " + bpy);
-                System.out.println("Список покупок ");
-                dopMet(list);
+                try {
+                    System.out.println("Какую покупку хотите удалить? ");
+                    list.remove(Integer.parseInt(number) - 1);
+                    System.out.println("Список покупок ");
+                    printList(list);
+                } catch (NumberFormatException e) {
+                    list.remove(list.indexOf(number));
+                    System.out.println("Покупка удалена :  " + number);
+                    System.out.println("Список покупок ");
+                    printList(list);
+                    continue;
+                }
             }
             if ("4".equals(input)) break;
         }
     }
 
-    private static void dopMet(List<String> list) {
+    private static void printList(List<String> list) {
         if (list.isEmpty()) {
             System.out.println("Список покупок пуст");
         }
